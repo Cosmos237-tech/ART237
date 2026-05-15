@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ART 237</title>
+<style>
+/* ================= RESET ================= */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#f4f7fb;
+color:#222;
+overflow-x:hidden;
+}
+
+/* ================= LOADER ================= */
+#loader{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:white;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+#loaderLogo{
+width:150px;
+animation:spinLogo 3s linear infinite;
+}
+
+@keyframes spinLogo{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
+/* ================= MAIN ================= */
+#mainContent{
+display:block;
+}
+
+/* ================= HEADER ================= */
+.header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:70px;
+background:white;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 20px;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+z-index:1000;
+}
+
+
+
+/* ================= NAVBAR ================= */
+.navbar{
+position:absolute;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:12px;
+}
+
+.navbar a{
+padding:8px 14px;
+border-radius:8px;
+cursor:pointer;
+transition:0.3s;
+font-weight:600;
+color:#333;
+}
+
+.navbar a:hover{
+background:#eaf2ff;
+color:#1d72b8;
+transform:translateY(-2px);
+}
+
+/* ================= SEARCH ================= */
+.search-container{
+display:flex;
+align-items:center;
+gap:5px;
+}
+
+.search-container input{
+padding:7px 12px;
+border-radius:20px;
+border:1px solid #ccc;
+outline:none;
+}
+
+.search-container button{
+padding:8px 10px;
+border:none;
+border-radius:50%;
+background:#1d72b8;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+.search-container button:hover{
+transform:scale(1.1);
+}
+
+/* ================= SECTIONS ================= */
+section{
+display:none;
+padding:90px 20px 30px;
+animation:fadeIn 0.4s ease;
+min-height:100vh;
+}
+
+section.active{
+display:block;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* ================= ACCUEIL ================= */
+#accueil{
+display:flex;
+gap:15px;
+}
+
+/* ================= COLUMNS ================= */
+.left-column,
+.center-column,
+.right-column{
+background:white;
+border-radius:14px;
+padding:15px;
+box-shadow:0 3px 10px rgba(0,0,0,0.06);
+}
+
+/* LEFT */
+.left-column{
+flex:1;
+}
+
+/* CENTER */
+.center-column{
+flex:2;
+}
+
+/* RIGHT */
+.right-column{
+flex:1;
+}
+
+/* ================= TITLES ================= */
+h1,h2,h3{
+margin-bottom:10px;
+color:#1d72b8;
+}
+
+/* ================= TEXTAREA ================= */
+textarea{
+width:100%;
+min-height:90px;
+padding:12px;
+border-radius:10px;
+border:1px solid #ccc;
+resize:none;
+margin-bottom:10px;
+}
+
+/* ================= UPLOAD ================= */
+.upload-box{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+align-items:center;
+margin-bottom:15px;
+}
+
+.upload-box input,
+.upload-box select{
+padding:8px;
+border-radius:8px;
+border:1px solid #ccc;
+background:white;
+}
+
+.upload-box button{
+padding:10px 14px;
+border:none;
+background:#1d72b8;
+color:white;
+border-radius:8px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.upload-box button:hover{
+background:#125a92;
+transform:translateY(-2px);
+}
+
+/* ================= POSTS ================= */
+.post{
+background:#fafafa;
+padding:15px;
+border-radius:14px;
+margin-top:15px;
+border-left:5px solid #1d72b8;
+transition:0.3s;
+}
+
+.post:hover{
+transform:translateY(-3px);
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.post img{
+width:100%;
+border-radius:10px;
+margin-top:10px;
+}
+
+.post video{
+width:100%;
+border-radius:10px;
+margin-top:10px;
+}
+
+.post audio{
+width:100%;
+margin-top:10px;
+}
+
+.post button{
+padding:7px 12px;
+border:none;
+border-radius:8px;
+background:#1d72b8;
+color:white;
+cursor:pointer;
+margin-top:10px;
+margin-right:5px;
+transition:0.3s;
+}
+
+.post button:hover{
+background:#125a92;
+}
+
+/* ================= COMMENTS ================= */
+.comment-box{
+margin-top:10px;
+background:#f1f4f8;
+padding:8px;
+border-radius:8px;
+}
+
+/* ================= CATEGORY BUTTONS ================= */
+.right-column button{
+display:block;
+width:100%;
+padding:10px;
+margin-bottom:8px;
+border:none;
+border-radius:8px;
+background:#eef4ff;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
+}
+
+.right-column button:hover{
+background:#1d72b8;
+color:white;
+}
+
+/* ================= CATEGORY VIEW ================= */
+#categoryView{
+margin-top:15px;
+}
+
+#categoryView p{
+background:#f5f7fb;
+padding:8px;
+border-radius:8px;
+margin-bottom:6px;
+}
+
+/* ================= GALLERY ================= */
+#heroCarousel{
+display:flex;
+gap:15px;
+overflow-x:auto;
+padding:10px 0;
+scrollbar-width:none;
+}
+
+#heroCarousel::-webkit-scrollbar{
+display:none;
+}
+
+/* HERO CARD */
+.hero-card{
+min-width:250px;
+background:linear-gradient(135deg,#1d72b8,#6b5cff);
+color:white;
+padding:15px;
+border-radius:14px;
+transition:0.3s;
+}
+
+.hero-card:hover{
+transform:scale(1.04);
+}
+
+/* GRID */
+#galleryGrid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+gap:15px;
+margin-top:20px;
+}
+
+.movie-card{
+background:white;
+padding:12px;
+border-radius:14px;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.movie-card:hover{
+transform:translateY(-5px);
+}
+
+/* ================= MISSIONS ================= */
+#missions{
+background:white;
+border-radius:14px;
+padding:20px;
+box-shadow:0 3px 10px rgba(0,0,0,0.06);
+}
+
+#missions ul{
+margin-top:15px;
+padding-left:20px;
+}
+
+#missions li{
+margin-bottom:10px;
+line-height:1.6;
+}
+
+/* ================= FORM ================= */
+form{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+form input,
+form select{
+padding:12px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+form button{
+padding:12px;
+border:none;
+border-radius:8px;
+background:#1d72b8;
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* ================= PARAMETRES ================= */
+#parametres{
+max-width:600px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:14px;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+
+#parametres button{
+width:100%;
+margin-top:10px;
+padding:12px;
+border:none;
+border-radius:8px;
+background:#1d72b8;
+color:white;
+cursor:pointer;
+}
+
+/* ADMIN PANEL */
+#adminPanel{
+margin-top:20px;
+padding:15px;
+background:#eef4ff;
+border-left:5px solid #1d72b8;
+border-radius:10px;
+}
+
+/* ================= CHAT ================= */
+#chat{
+position:fixed;
+bottom:10px;
+right:10px;
+width:300px;
+background:white;
+border-radius:14px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+padding:10px;
+z-index:999;
+}
+
+#chatTitle{
+margin-bottom:10px;
+}
+
+#membersChat{
+display:flex;
+flex-wrap:wrap;
+gap:5px;
+margin-bottom:10px;
+}
+
+#membersChat img{
+width:40px;
+height:40px;
+border-radius:50%;
+cursor:pointer;
+border:2px solid #1d72b8;
+transition:0.3s;
+}
+
+#membersChat img:hover{
+transform:scale(1.15);
+}
+
+#chatMessages{
+height:150px;
+overflow-y:auto;
+background:#f5f7fb;
+padding:8px;
+border-radius:8px;
+margin-bottom:10px;
+font-size:13px;
+}
+
+#chat input{
+width:100%;
+padding:10px;
+border-radius:8px;
+border:1px solid #ccc;
+margin-bottom:8px;
+}
+
+#chat button{
+width:100%;
+padding:10px;
+border:none;
+border-radius:8px;
+background:#1d72b8;
+color:white;
+cursor:pointer;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:1000px){
+
+#accueil{
+flex-direction:column;
+}
+
+.header{
+flex-direction:column;
+height:auto;
+padding:10px;
+gap:10px;
+}
+
+.navbar{
+position:relative;
+left:0;
+transform:none;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+#chat{
+position:relative;
+width:100%;
+right:0;
+bottom:0;
+margin-top:20px;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOADER ================= -->
+<!--<div id="loader">
+<img src="A.R.T association.png" id="loaderLogo">
+</div>
+
+<div id="mainContent">
+
+<!-- ================= HEADER ================= -->
+<!--<header class="header"> -->
+
+<div class="logo-container">
+<h1>ART 🦋</h1>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+
+<a data-target="accueil">Accueil</a>
+<a data-target="galerie">Galerie</a>
+<a data-target="categories">Catégories</a>
+<a data-target="missions">Nos missions</a>
+<a data-target="rejoindre">Rejoindre</a>
+<a data-target="contact">Contact</a>
+<a data-target="parametres">Paramètres</a>
+
+</nav>
+
+<!-- SEARCH -->
+<div class="search-container">
+<input type="text" id="siteSearch" placeholder="Recherche...">
+<button onclick="searchSite()">🔍</button>
+</div>
+
+</header>
+
+<!-- ================= ACCUEIL ================= -->
+<section id="accueil">
+
+<!-- LEFT -->
+<div class="left-column">
+<h3>Tendances</h3>
+<div id="trends"></div>
+
+<h3>Événements</h3>
+<div id="events"></div>
+</div>
+
+<!-- CENTER -->
+<div class="center-column">
+
+<h3>Créer une publication</h3>
+
+<textarea id="postText" placeholder="Exprime ton talent..."></textarea>
+
+<!-- UPLOAD SYSTEM -->
+<div class="upload-box">
+
+<input type="file" id="mediaInput">
+
+<select id="postType">
+<option value="text">Texte</option>
+<option value="image">Image</option>
+<option value="video">Vidéo</option>
+<option value="audio">Audio</option>
+<option value="event">Événement</option>
+</select>
+
+<button onclick="publishPost()">📢 Publication</button>
+
+</div>
+
+<hr>
+
+<h3>Fil des publications</h3>
+
+<div id="posts"></div>
+
+</div>
+
+<!-- RIGHT -->
+<div class="right-column">
+
+<h3>Catégories</h3>
+
+<button onclick="filterCategory('Musique')">Musique</button>
+<button onclick="filterCategory('Peintre')">Peinture</button>
+<button onclick="filterCategory('Dessinateur')">Dessin</button>
+<button onclick="filterCategory('Sculpteur')">Sculpture</button>
+<button onclick="filterCategory('Informaticien')">IT</button>
+
+<div id="categoryView"></div>
+
+</div>
+
+</section>
+
+<!-- ================= GALERIE ================= -->
+<section id="galerie">
+<h1>Galerie ART</h1>
+<div id="heroCarousel"></div>
+<div id="galleryGrid"></div>
+</section>
+
+<!-- ================= MISSIONS ================= -->
+<section id="missions">
+
+<h1>🎯 Nos missions</h1>
+
+<p>
+L’Association du Renouveau du Talent Camerounais (ART) a pour mission de :
+</p>
+
+<ul>
+<li>🎨 Promouvoir les talents artistiques locaux</li>
+<li>💻 Encourager les jeunes dans les métiers du numérique</li>
+<li>🎭 Développer la créativité et l’innovation culturelle</li>
+<li>🌍 Connecter les artistes entre eux à travers le pays</li>
+<li>📢 Offrir une plateforme d’expression libre</li>
+<li>🏆 Organiser des concours et expositions artistiques</li>
+<li>📚 Former et accompagner les jeunes talents</li>
+</ul>
+
+</section>
+
+<!-- ================= REJOINDRE ================= -->
+<section id="rejoindre">
+
+<h1>Rejoindre ART</h1>
+
+<form onsubmit="joinAssociation(event)">
+
+<input id="username" placeholder="Nom">
+<input id="email" placeholder="Email">
+
+<select id="userCategory">
+<option>Musique</option>
+<option>Peintre</option>
+<option>Dessinateur</option>
+<option>Sculpteur</option>
+<option>Informaticien</option>
+</select>
+
+<button type="submit">S’inscrire</button>
+
+</form>
+
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+
+<h1>Contact</h1>
+
+<p>📞 690 815 015</p>
+<p>📱 687 523 937</p>
+<p>📍 Yaoundé - Soa 🇨🇲</p>
+<p>📧 dimensionjupiter237@gmail.com</p>
+
+</section>
+
+<!-- ================= PARAMETRES ================= -->
+<section id="parametres">
+
+<h1>Paramètres</h1>
+
+<button onclick="createAdminPassword()">Créer mot de passe admin</button>
+
+<input type="password" id="adminCode" placeholder="Code admin">
+<button onclick="grantAdmin()">Valider admin</button>
+
+<div id="adminPanel" style="display:none;">
+<h2>ADMIN PANEL</h2>
+
+<button onclick="editProfile()">Modifier profil</button>
+<button onclick="manageUsers()">Gérer membres</button>
+<button onclick="deleteAllPosts()">Supprimer posts</button>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- ================= CHAT ================= -->
+<div id="chat">
+<h3 id="chatTitle">Chat</h3>
+
+<div id="membersChat"></div>
+
+<div id="chatMessages"></div>
+
+<input id="chatInput">
+<button onclick="sendMessage()">Envoyer</button>
+</div>
+
+<script >
+    
+/* ================= GLOBAL STATE ================= */
+let members = [];
+let posts = [];
+let currentUser = null;
+let chatTarget = null;
+
+/* ================= ADMIN SYSTEM ================= */
+let adminPassword = localStorage.getItem("adminPassword") || null;
+
+function createAdminPassword(){
+const pass = prompt("Créer mot de passe admin principal");
+if(!pass) return;
+
+adminPassword = pass;
+localStorage.setItem("adminPassword", pass);
+
+alert("Admin enregistré !");
+}
+
+function grantAdmin(){
+
+const code = document.getElementById("adminCode").value;
+
+if(!adminPassword){
+alert("Crée d'abord un mot de passe admin !");
+return;
+}
+
+if(code === adminPassword){
+if(currentUser) currentUser.admin = true;
+
+document.getElementById("adminPanel").style.display = "block";
+
+alert("Mode administrateur activé !");
+renderPosts();
+}else{
+alert("Code incorrect");
+}
+
+}
+
+/* ================= NAVIGATION SPA ================= */
+document.querySelectorAll("nav a").forEach(link=>{
+link.addEventListener("click",()=>{
+
+const target = link.getAttribute("data-target");
+
+document.querySelectorAll("section").forEach(sec=>{
+sec.classList.remove("active");
+sec.style.display="none";
+});
+
+const active = document.getElementById(target);
+if(active){
+active.style.display="block";
+active.classList.add("active");
+}
+
+});
+});
+
+/* ================= JOIN ================= */
+function joinAssociation(e){
+e.preventDefault();
+
+const name = document.getElementById("username").value;
+const email = document.getElementById("email").value;
+const cat = document.getElementById("userCategory").value;
+
+if(!name || !cat) return alert("Champs incomplets");
+
+currentUser = {
+name,
+email,
+category:cat,
+avatar:"avatar.png",
+admin:false
+};
+
+members.push(currentUser);
+
+renderMembers();
+
+alert("Bienvenue " + name);
+}
+
+/* ================= POST WITH UPLOAD ================= */
+function publishPost(){
+
+if(!currentUser) return alert("Connecte-toi d'abord");
+
+const text = document.getElementById("postText").value;
+const type = document.getElementById("postType").value;
+const file = document.getElementById("mediaInput").files[0];
+
+let mediaURL = "";
+
+if(file){
+const reader = new FileReader();
+
+reader.onload = function(e){
+mediaURL = e.target.result;
+
+createPost(text,type,mediaURL);
+};
+
+reader.readAsDataURL(file);
+
+}else{
+createPost(text,type,"");
+}
+
+}
+
+function createPost(text,type,media){
+
+const post = {
+id:Date.now(),
+user:currentUser.name,
+category:currentUser.category,
+type:type,
+content:text,
+media:media,
+likes:0,
+comments:[]
+};
+
+posts.unshift(post);
+
+renderPosts();
+renderGallery();
+
+document.getElementById("postText").value="";
+document.getElementById("mediaInput").value="";
+}
+
+/* ================= RENDER POSTS ================= */
+function renderPosts(){
+
+const container = document.getElementById("posts");
+
+container.innerHTML = posts.map(p=>`
+
+<div class="post">
+
+<b>${p.user} (${p.category})</b>
+
+<p>Type: ${p.type}</p>
+
+<p>${p.content || ""}</p>
+
+${p.media ? renderMedia(p) : ""}
+
+<p>❤️ ${p.likes}</p>
+
+<button onclick="likePost(${p.id})">Like</button>
+<button onclick="commentPost(${p.id})">Commenter</button>
+
+${currentUser?.admin ? `
+<button onclick="deletePost(${p.id})">Supprimer</button>
+` : ""}
+
+<div>
+${p.comments.map(c=>`<p>💬 ${c}</p>`).join("")}
+</div>
+
+</div>
+
+`).join("");
+}
+
+/* ================= MEDIA DISPLAY ================= */
+function renderMedia(p){
+
+if(p.type === "image"){
+return `<img src="${p.media}" width="100%">`;
+}
+
+if(p.type === "video"){
+return `<video src="${p.media}" controls width="100%"></video>`;
+}
+
+if(p.type === "audio"){
+return `<audio src="${p.media}" controls></audio>`;
+}
+
+if(p.type === "event"){
+return `<div style="background:#eef;padding:5px;">📅 Événement joint</div>`;
+}
+
+return "";
+}
+
+/* ================= LIKE ================= */
+function likePost(id){
+
+const post = posts.find(p=>p.id===id);
+if(post){
+post.likes++;
+renderPosts();
+renderGallery();
+}
+
+}
+
+/* ================= COMMENT ================= */
+function commentPost(id){
+
+const txt = prompt("Commentaire :");
+if(!txt) return;
+
+const post = posts.find(p=>p.id===id);
+post.comments.push(txt);
+
+renderPosts();
+
+}
+
+/* ================= DELETE ================= */
+function deletePost(id){
+
+if(!currentUser?.admin) return;
+
+posts = posts.filter(p=>p.id !== id);
+
+renderPosts();
+renderGallery();
+
+}
+
+/* ================= GALLERY MOVIEBOX ================= */
+function renderGallery(){
+
+const hero = document.getElementById("heroCarousel");
+const grid = document.getElementById("galleryGrid");
+
+const top = [...posts].sort((a,b)=>b.likes-a.likes).slice(0,10);
+
+hero.innerHTML = top.map(p=>`
+<div class="hero-card">
+<b>${p.user}</b>
+<p>${p.content?.slice(0,40) || ""}</p>
+<p>❤️ ${p.likes}</p>
+</div>
+`).join("");
+
+grid.innerHTML = posts.map(p=>`
+<div class="movie-card">
+<b>${p.user}</b>
+<p>${p.type}</p>
+<p>❤️ ${p.likes}</p>
+</div>
+`).join("");
+
+}
+
+/* ================= MEMBERS ================= */
+function renderMembers(){
+
+const box = document.getElementById("membersChat");
+
+box.innerHTML = members.map(m=>`
+<img src="${m.avatar}" title="${m.name}"
+onclick="openChat('${m.name}')">
+`).join("");
+
+}
+
+/* ================= CHAT ================= */
+function openChat(name){
+chatTarget = name;
+document.getElementById("chatTitle").innerText = "Chat avec " + name;
+}
+
+function sendMessage(){
+
+const msg = document.getElementById("chatInput").value;
+
+if(!msg || !chatTarget || !currentUser) return;
+
+document.getElementById("chatMessages").innerHTML += `
+<p><b>${currentUser.name} → ${chatTarget}</b>: ${msg}</p>
+`;
+
+document.getElementById("chatInput").value="";
+
+}
+
+/* ================= PROFILE EDIT ================= */
+function editProfile(){
+
+if(!currentUser) return;
+
+const name = prompt("Nom :", currentUser.name);
+const cat = prompt("Catégorie :", currentUser.category);
+
+if(name) currentUser.name = name;
+if(cat) currentUser.category = cat;
+
+alert("Profil mis à jour");
+
+renderMembers();
+renderPosts();
+
+}
+
+/* ================= SEARCH ================= */
+function searchSite(){
+
+const q = document.getElementById("siteSearch").value.toLowerCase();
+
+const result = posts.filter(p=>p.content?.toLowerCase().includes(q));
+
+alert("Résultats : " + result.length);
+
+}
+
+/* ================= INIT ================= */
+window.onload = function(){
+renderPosts();
+renderMembers();
+renderGallery();
+};
+</script>
+
+</body>
+</html>
